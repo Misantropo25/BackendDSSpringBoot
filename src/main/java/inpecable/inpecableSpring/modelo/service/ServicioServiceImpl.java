@@ -18,4 +18,22 @@ public class ServicioServiceImpl implements IServicioService{
     public List<Servicio> findAll() {
         return (List<Servicio>) servicioDao.findAll();
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Servicio findById(Long id) {
+        return servicioDao.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public Servicio save(Servicio servicio) {
+        return servicioDao.save(servicio);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        servicioDao.deleteById(id);
+    }
 }

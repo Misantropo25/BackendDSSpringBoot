@@ -3,10 +3,8 @@ package inpecable.inpecableSpring.control;
 import inpecable.inpecableSpring.modelo.Ticket;
 import inpecable.inpecableSpring.modelo.service.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,13 +14,33 @@ public class TicketRestController {
     @Autowired
     private ITicketService ticketService;
 
-    @GetMapping("/tickets")
-    public List<Ticket> listar() {
+    @GetMapping("/ticket")
+    public List<Ticket> listar(){
         return ticketService.findAll();
     }
 
-    @PostMapping("/tickets")
-    private String mensaje() {
-        return "Desde la peticion del POST";
+    @GetMapping("/ticket/{id}")
+    public Ticket mostrar(@PathVariable Long id){
+        return ticketService.findById(id);
+    }
+
+    @PostMapping("/ticket/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Ticket crear(@RequestBody Ticket ticket){
+        return ticketService.save(ticket);
+    }
+
+    @PutMapping("/ticket/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Ticket actualizar(@RequestBody Ticket ticket, @PathVariable Long id){
+        Ticket ticketOriginal = ticketService.findById(id);
+        ticketOriginal.setDescripcionTicket(ticket.getDescripcionTicket());
+        return ticketService.save(ticketOriginal);
+    }
+
+    @DeleteMapping("/ticket/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id){
+        ticketService.delete(id);
     }
 }

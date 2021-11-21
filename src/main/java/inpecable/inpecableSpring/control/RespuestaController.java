@@ -4,10 +4,8 @@ package inpecable.inpecableSpring.control;
 import inpecable.inpecableSpring.modelo.Respuesta;
 import inpecable.inpecableSpring.modelo.service.IRespuestaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,14 +15,34 @@ public class RespuestaController {
     @Autowired
     private IRespuestaService respuestaService;
 
-    @GetMapping("/respuestas")
+    @GetMapping("/respuesta")
     public List<Respuesta> listar(){
         return respuestaService.findAll();
     }
 
-    @PostMapping("/respuestas")
-    private String mensaje(){
-        return "Desde peticion POST";
+    @GetMapping("/respuesta/{id}")
+    public Respuesta mostrar(@PathVariable Long id){
+        return respuestaService.findById(id);
+    }
+
+    @PostMapping("/respuesta/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Respuesta crear(@RequestBody Respuesta respuesta){
+        return respuestaService.save(respuesta);
+    }
+
+    @PutMapping("/respuesta/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Respuesta actualizar(@RequestBody Respuesta respuesta, @PathVariable Long id){
+        Respuesta respuestaOriginal = respuestaService.findById(id);
+        respuestaOriginal.setContenido(respuesta.getContenido());
+        return respuestaService.save(respuestaOriginal);
+    }
+
+    @DeleteMapping("/respuesta/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id){
+        respuestaService.delete(id);
     }
 
 }

@@ -1,13 +1,12 @@
 package inpecable.inpecableSpring.control;
 
 
+import inpecable.inpecableSpring.modelo.DetalleServicio;
 import inpecable.inpecableSpring.modelo.Empleado;
 import inpecable.inpecableSpring.modelo.service.IEmpleadoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,13 +16,33 @@ public class EmpleadoRestController {
     @Autowired
     private IEmpleadoService empleadoService;
 
-    @GetMapping("/empleados")
-    public List<Empleado> listar(){
+    @GetMapping("/empleado")
+    public List<Empleado> listar() {
         return empleadoService.findAll();
     }
 
-    @PostMapping("/empleados")
-    private String mensaje(){
-        return "Desde peticion POST";
+    @GetMapping("/empleado/{id}")
+    public Empleado mostrar(@PathVariable Long id) {
+        return empleadoService.findById(id);
+    }
+
+    @PostMapping("/empleado/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Empleado crear(@RequestBody Empleado empleado) {
+        return empleadoService.save(empleado);
+    }
+
+    @PutMapping("/empleado/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Empleado actualizar(@RequestBody Empleado empleado, @PathVariable Long id) {
+        Empleado empleadoOriginal = empleadoService.findById(id);
+        empleadoOriginal.setNombre(empleado.getNombre());
+        return empleadoService.save(empleadoOriginal);
+    }
+
+    @DeleteMapping("/empleado/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id) {
+        empleadoService.delete(id);
     }
 }

@@ -20,4 +20,22 @@ public class RespuestaServiceImpl implements IRespuestaService{
         return (List<Respuesta>) respuestaDao.findAll();
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Respuesta findById(Long id) {
+        return respuestaDao.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public Respuesta save(Respuesta respuesta) {
+        return respuestaDao.save(respuesta);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        respuestaDao.deleteById(id);
+    }
+
 }

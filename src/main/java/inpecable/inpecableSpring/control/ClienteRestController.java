@@ -5,10 +5,8 @@ import inpecable.inpecableSpring.modelo.Contrato;
 import inpecable.inpecableSpring.modelo.service.IClienteService;
 import inpecable.inpecableSpring.modelo.service.IContratoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,13 +17,33 @@ public class ClienteRestController {
     @Autowired
     private IClienteService clienteService;
 
-    @GetMapping("/clientes")
+    @GetMapping("/cliente")
     public List<Cliente> listar(){
         return clienteService.findAll();
     }
 
-    @PostMapping("/clientes")
-    private String mensaje(){
-        return "Desde peticion POST";
+    @GetMapping("/cliente/{id}")
+    public Cliente mostrar(@PathVariable Long id){
+        return clienteService.findById(id);
+    }
+
+    @PostMapping("/cliente/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Cliente crear(@RequestBody Cliente cliente){
+        return clienteService.save(cliente);
+    }
+
+    @PutMapping("/cliente/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Cliente actualizar(@RequestBody Cliente cliente, @PathVariable Long id){
+        Cliente clienteOriginal = clienteService.findById(id);
+        clienteOriginal.setNombre(cliente.getNombre());
+        return clienteService.save(clienteOriginal);
+    }
+
+    @DeleteMapping("/cliente/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id){
+        clienteService.delete(id);
     }
 }

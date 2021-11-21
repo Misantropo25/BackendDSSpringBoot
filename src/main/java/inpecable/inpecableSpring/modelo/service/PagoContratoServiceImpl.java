@@ -19,5 +19,25 @@ public class PagoContratoServiceImpl implements IPagoContratoService{
     public List<PagoContrato> findAll() {
         return (List<PagoContrato>) pagoDao.findAll();
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public PagoContrato findById(Long id) {
+        return pagoDao.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public PagoContrato save(PagoContrato pagoContrato) {
+        return pagoDao.save(pagoContrato);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        pagoDao.deleteById(id);
+    }
+
+
 }
 

@@ -19,4 +19,22 @@ public class DetalleServiceImpl implements IDetalleService {
         return (List<DetalleServicio>) detalleServicioDao.findAll();
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public DetalleServicio findById(Long id) {
+        return detalleServicioDao.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public DetalleServicio save(DetalleServicio detalleServicio) {
+        return detalleServicioDao.save(detalleServicio);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        detalleServicioDao.deleteById(id);
+    }
+
 }

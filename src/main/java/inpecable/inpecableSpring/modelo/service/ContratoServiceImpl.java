@@ -19,4 +19,22 @@ public class ContratoServiceImpl implements IContratoService {
         return (List<Contrato>) contratoDao.findAll();
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Contrato findById(Long id) {
+        return contratoDao.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public Contrato save(Contrato rol) {
+        return contratoDao.save(rol);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        contratoDao.deleteById(id);
+    }
+
 }
