@@ -26,14 +26,13 @@ public class EmpleadoRestController {
         return empleadoService.findById(id);
     }
 
-    @PostMapping("/empleado/")
+    @PostMapping("/empleado")
     @ResponseStatus(HttpStatus.CREATED)
     public Empleado crear(@RequestBody Empleado empleado) {
         return empleadoService.save(empleado);
     }
 
     @PutMapping("/empleado/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
     public Empleado actualizar(@RequestBody Empleado empleado, @PathVariable Long id) {
         Empleado empleadoOriginal = empleadoService.findById(id);
         empleadoOriginal.setNombre(empleado.getNombre());

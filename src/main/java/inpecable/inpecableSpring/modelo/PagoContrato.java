@@ -4,6 +4,7 @@ import ch.qos.logback.core.net.server.Client;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,29 +14,26 @@ public class PagoContrato {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-    @Column(name = "monto")
-    private Float monto; // Ojo como tomaremos el monto como string o decimal
+    @Column(name = "monto", scale = 2, precision = 7)
+    private BigDecimal monto; // Ojo como tomaremos el monto como string o decimal
     @Column(name = "fechaPago")
     private LocalDateTime fechaPago;
     @Column(name = "fechaLimitePago")
     private LocalDateTime fechaLimitePago;
-    @Column(name = "mora")
-    private Float mora;
+    @Column(name = "mora", scale = 2, precision = 7)
+    private BigDecimal mora;
     @Column(name = "estadoPago")
     private boolean estadoPago;
-
 
     @ManyToOne
     @JoinColumn(name="correspondeContrato", referencedColumnName = "id")
     @JsonBackReference
     private Contrato correspondeContrato;
 
-
-
     public PagoContrato() {
     }
 
-    public PagoContrato(Float monto, LocalDateTime fechaPago, LocalDateTime fechaLimitePago, Float mora, boolean estadoPago, Contrato correspondeContrato) {
+    public PagoContrato(BigDecimal monto, LocalDateTime fechaPago, LocalDateTime fechaLimitePago, BigDecimal mora, boolean estadoPago, Contrato correspondeContrato) {
         this.monto = monto;
         this.fechaPago = fechaPago;
         this.fechaLimitePago = fechaLimitePago;
@@ -52,11 +50,11 @@ public class PagoContrato {
         this.id = id;
     }
 
-    public Float getMonto() {
+    public BigDecimal getMonto() {
         return monto;
     }
 
-    public void setMonto(Float monto) {
+    public void setMonto(BigDecimal monto) {
         this.monto = monto;
     }
 
@@ -76,11 +74,11 @@ public class PagoContrato {
         this.fechaLimitePago = fechaLimitePago;
     }
 
-    public Float getMora() {
+    public BigDecimal getMora() {
         return mora;
     }
 
-    public void setMora(Float mora) {
+    public void setMora(BigDecimal mora) {
         this.mora = mora;
     }
 

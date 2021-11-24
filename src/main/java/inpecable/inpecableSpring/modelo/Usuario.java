@@ -1,6 +1,7 @@
 package inpecable.inpecableSpring.modelo;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -24,11 +25,11 @@ public class Usuario {
     private Boolean usuarioValidado;
 
     @OneToOne(mappedBy = "tieneUsuario")
-    @JsonManagedReference
+    @JsonBackReference
     private Empleado tieneUsuario;
 
     @OneToOne(mappedBy = "tiene_Usuario")
-    @JsonManagedReference
+    @JsonBackReference
     private Cliente tiene_Usuario;
 
 

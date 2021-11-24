@@ -26,14 +26,13 @@ public class UsuarioRestController {
         return usuarioService.findById(id);
     }
 
-    @PostMapping("/usuario/")
+    @PostMapping("/usuario")
     @ResponseStatus(HttpStatus.CREATED)
     public Usuario crear(@RequestBody Usuario usuario){
         return usuarioService.save(usuario);
     }
 
     @PutMapping("/usuario/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
     public Usuario actualizar(@RequestBody Usuario usuario, @PathVariable Long id){
         Usuario usuarioOriginal = usuarioService.findById(id);
         usuarioOriginal.setNomUsuario(usuario.getNomUsuario());

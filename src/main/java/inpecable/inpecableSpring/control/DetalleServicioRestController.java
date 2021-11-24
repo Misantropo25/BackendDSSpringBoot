@@ -25,14 +25,13 @@ public class DetalleServicioRestController {
         return detalleService.findById(id);
     }
 
-    @PostMapping("/detalles/")
+    @PostMapping("/detalles")
     @ResponseStatus(HttpStatus.CREATED)
     public DetalleServicio crear(@RequestBody DetalleServicio detalleServicio){
         return detalleService.save(detalleServicio);
     }
 
     @PutMapping("/detalles/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
     public DetalleServicio actualizar(@RequestBody DetalleServicio detalleServicio, @PathVariable Long id){
         DetalleServicio detalleOriginal = detalleService.findById(id);
         detalleOriginal.setDescripcion(detalleServicio.getDescripcion());

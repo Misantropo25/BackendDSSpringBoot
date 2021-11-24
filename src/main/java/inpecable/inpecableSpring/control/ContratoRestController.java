@@ -26,21 +26,20 @@ public class ContratoRestController  {
         return contratoService.findById(id);
     }
 
-    @PostMapping("/contrato/")
+    @PostMapping("/contrato")
     @ResponseStatus(HttpStatus.CREATED)
     public Contrato crear(@RequestBody Contrato contrato){
         return contratoService.save(contrato);
     }
 
     @PutMapping("/contrato/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
     public Contrato actualizar(@RequestBody Contrato contrato, @PathVariable Long id){
         Contrato contratoOriginal = contratoService.findById(id);
         contratoOriginal.setDescripcion(contrato.getDescripcion());
         return contratoService.save(contratoOriginal);
     }
 
-    @DeleteMapping("/rol/{id}")
+    @DeleteMapping("/contrato/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminar(@PathVariable Long id){
         contratoService.delete(id);

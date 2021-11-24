@@ -25,14 +25,13 @@ public class PagoContratoRestController {
         return pagoContratoService.findById(id);
     }
 
-    @PostMapping("/pago/")
+    @PostMapping("/pago")
     @ResponseStatus(HttpStatus.CREATED)
     public PagoContrato crear(@RequestBody PagoContrato pagoContrato){
         return pagoContratoService.save(pagoContrato);
     }
 
     @PutMapping("/pago/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
     public PagoContrato actualizar(@RequestBody PagoContrato pagoContrato, @PathVariable Long id){
         PagoContrato pagoContratoOriginal = pagoContratoService.findById(id);
         pagoContratoOriginal.setEstadoPago(pagoContrato.getEstadoPago());

@@ -36,7 +36,7 @@ public class Empleado {
 
     @OneToOne
     @JoinColumn(name="tieneUsuario", referencedColumnName = "id")
-    @JsonBackReference
+    @JsonManagedReference
     private Usuario tieneUsuario;
 
     @OneToMany(mappedBy = "empleadoRespondio")

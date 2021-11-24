@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -18,8 +20,8 @@ public class DetalleServicio {
     private long id;
     @Column(name = "descripcion")
     private String descripcion;
-    @Column(name = "costoServicio")
-    private Float costoServicio;
+    @Column(name = "costoServicio", scale = 2, precision = 7)
+    private BigDecimal costoServicio;
     @Column(name = "fechaCreacion")
     private LocalDateTime fechaCreacion;
     @Column(name = "fechaExpiracion")
@@ -33,7 +35,7 @@ public class DetalleServicio {
     public DetalleServicio() {
     }
 
-    public DetalleServicio(String descripcion, Float costoServicio, LocalDateTime fechaCreacion, LocalDateTime fechaExpiracion, Servicio tieneDetalle) {
+    public DetalleServicio(String descripcion, BigDecimal costoServicio, LocalDateTime fechaCreacion, LocalDateTime fechaExpiracion, Servicio tieneDetalle) {
         this.descripcion = descripcion;
         this.costoServicio = costoServicio;
         this.fechaCreacion = fechaCreacion;
@@ -58,11 +60,11 @@ public class DetalleServicio {
         this.descripcion = descripcion;
     }
 
-    public Float getCostoServicio() {
+    public BigDecimal getCostoServicio() {
         return costoServicio;
     }
 
-    public void setCostoServicio(Float costoServicio) {
+    public void setCostoServicio(BigDecimal costoServicio) {
         this.costoServicio = costoServicio;
     }
 

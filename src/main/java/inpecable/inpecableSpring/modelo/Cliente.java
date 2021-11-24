@@ -31,7 +31,7 @@ public class Cliente {
 
     @OneToOne
     @JoinColumn(name="tiene_Usuario", referencedColumnName = "id")
-    @JsonBackReference
+    @JsonManagedReference
     private Usuario tiene_Usuario;
 
     @OneToMany(mappedBy = "clienteSolicito")
@@ -60,6 +60,7 @@ public class Cliente {
         this.clienteSolicito = clienteSolicito;
         this.correspondeCliente = correspondeCliente;
     }
+
 
     public long getId() {
         return id;
@@ -126,6 +127,9 @@ public class Cliente {
     }
 
     public Usuario getTiene_Usuario() {
+        if (this.tiene_Usuario == null){
+            this.tiene_Usuario = null;
+        }
         return tiene_Usuario;
     }
 

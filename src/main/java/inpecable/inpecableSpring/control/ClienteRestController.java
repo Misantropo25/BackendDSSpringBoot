@@ -1,9 +1,7 @@
 package inpecable.inpecableSpring.control;
 
 import inpecable.inpecableSpring.modelo.Cliente;
-import inpecable.inpecableSpring.modelo.Contrato;
 import inpecable.inpecableSpring.modelo.service.IClienteService;
-import inpecable.inpecableSpring.modelo.service.IContratoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -27,14 +25,13 @@ public class ClienteRestController {
         return clienteService.findById(id);
     }
 
-    @PostMapping("/cliente/")
+    @PostMapping("/cliente")
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente crear(@RequestBody Cliente cliente){
         return clienteService.save(cliente);
     }
 
     @PutMapping("/cliente/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
     public Cliente actualizar(@RequestBody Cliente cliente, @PathVariable Long id){
         Cliente clienteOriginal = clienteService.findById(id);
         clienteOriginal.setNombre(cliente.getNombre());

@@ -24,14 +24,13 @@ public class TicketRestController {
         return ticketService.findById(id);
     }
 
-    @PostMapping("/ticket/")
+    @PostMapping("/ticket")
     @ResponseStatus(HttpStatus.CREATED)
     public Ticket crear(@RequestBody Ticket ticket){
         return ticketService.save(ticket);
     }
 
     @PutMapping("/ticket/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
     public Ticket actualizar(@RequestBody Ticket ticket, @PathVariable Long id){
         Ticket ticketOriginal = ticketService.findById(id);
         ticketOriginal.setDescripcionTicket(ticket.getDescripcionTicket());

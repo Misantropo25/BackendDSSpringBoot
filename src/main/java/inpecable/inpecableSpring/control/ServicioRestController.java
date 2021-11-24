@@ -24,14 +24,13 @@ public class ServicioRestController {
         return servicioService.findById(id);
     }
 
-    @PostMapping("/servicio/")
+    @PostMapping("/servicio")
     @ResponseStatus(HttpStatus.CREATED)
     public Servicio crear(@RequestBody Servicio servicio){
         return servicioService.save(servicio);
     }
 
     @PutMapping("/servicio/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
     public Servicio actualizar(@RequestBody Servicio servicio, @PathVariable Long id){
         Servicio servicioOriginal = servicioService.findById(id);
         servicioOriginal.setNombreServicio(servicio.getNombreServicio());
